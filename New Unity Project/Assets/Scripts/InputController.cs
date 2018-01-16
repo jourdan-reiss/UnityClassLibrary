@@ -14,7 +14,9 @@ public class InputController : MonoBehaviour
     string y_Rotate;
     string A_Button, B_Button, X_Button, Y_Button;
 
-    public delegate ICommand a_button();
+    public delegate void JoystickAction();
+    public static event JoystickAction OnMoveLeftJoystick;
+    public static event JoystickAction OnMoveRightJoystick;
    
     public float turnSpeed;
     public float movementSpeed;
@@ -49,7 +51,7 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetButton(A_Button))
         {
-            // return an 'a button' command
+           
         }
         else if(Input.GetButton(B_Button))
         {
@@ -68,7 +70,12 @@ public class InputController : MonoBehaviour
         {
             do
             {
-                //movement and turning
+                if(OnMoveLeftJoystick != null || OnMoveRightJoystick != null)
+                {
+                    OnMoveLeftJoystick();
+                    OnMoveRightJoystick();
+                }
+                
             }
             while (Input.GetAxis(horizontalDirection) != 0 || Input.GetAxis(verticalDirection) != 0);
         }

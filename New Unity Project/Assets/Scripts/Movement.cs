@@ -26,6 +26,18 @@ public class Movement : MonoBehaviour
         this.movementSpeed = movementSpeed;
     }
 
+    private void OnEnable()
+    {
+        InputController.OnMoveLeftJoystick += Moving;
+        InputController.OnMoveRightJoystick += Turning;
+    }
+
+    private void OnDisable()
+    {
+        InputController.OnMoveLeftJoystick -= Moving;
+        InputController.OnMoveRightJoystick -= Turning;
+    }
+
     void Moving()
     {
         xVelocity = Input.GetAxis(horizontalDirection) * movementSpeed * Time.deltaTime;
