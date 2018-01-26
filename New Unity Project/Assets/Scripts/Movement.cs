@@ -5,10 +5,6 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 
 {
-
-    float xVelocity;
-    float yVelocity;
-
     string horizontalDirection;
     string verticalDirection;
     string x_Rotate;
@@ -19,11 +15,9 @@ public class Movement : MonoBehaviour
 
     Rigidbody rb;
 
-    public Movement (Rigidbody rb, float movementSpeed, float turnSpeed)
+    private void Start()
     {
-        this.rb = rb;
-        this.turnSpeed = turnSpeed;
-        this.movementSpeed = movementSpeed;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -40,14 +34,14 @@ public class Movement : MonoBehaviour
 
     void Moving()
     {
-        xVelocity = Input.GetAxis(horizontalDirection) * movementSpeed * Time.deltaTime;
-        yVelocity = Input.GetAxis(verticalDirection) * movementSpeed * Time.deltaTime;
+        float xVelocity = Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime;
+        float yVelocity = Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime;
 
-        if (Input.GetAxis(horizontalDirection) != 0)
+        if (Input.GetAxis("Horizontal") != 0)
         {
             Move(xVelocity);
         }
-        else if (Input.GetAxis(verticalDirection) != 0)
+        else if (Input.GetAxis("Vertical") != 0)
         {
             Move(yVelocity);
         }
@@ -61,15 +55,15 @@ public class Movement : MonoBehaviour
 
     void Turning()
     {
-        float x_turnVelocity = Input.GetAxis(x_Rotate) * turnSpeed * Time.deltaTime;
-        float y_turnVelocity = Input.GetAxis(y_Rotate) * turnSpeed * Time.deltaTime;
+        float x_turnVelocity = Input.GetAxis("Rotate Horizontal") * turnSpeed * Time.deltaTime;
+        float y_turnVelocity = Input.GetAxis("Rotate Vertical") * turnSpeed * Time.deltaTime;
 
-        if (Input.GetAxis(x_Rotate) != 0)
+        if (Input.GetAxis("Rotate Horizontal") != 0)
         {
             Vector3 x_rotationVelocity = new Vector3(x_turnVelocity, 0f, 0f);
             Turn(x_rotationVelocity);
         }
-        else if (Input.GetAxis(y_Rotate) != 0)
+        else if (Input.GetAxis("Rotate Vertical") != 0)
         {
             Vector3 y_rotationVelocity = new Vector3(0f, y_turnVelocity, 0f);
             Turn(y_rotationVelocity);

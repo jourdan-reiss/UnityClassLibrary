@@ -44,7 +44,7 @@ public class JumpClass : MonoBehaviour , ICommand
 
     public void Execute()
     {
-        Jump();
+        //Jump();
     }
 
     //need velocity along the horizontal, velocity in the vertical. These combine to give the 3-dimensional velocity of the player once the jump begins. 

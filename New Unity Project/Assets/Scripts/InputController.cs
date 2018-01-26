@@ -5,9 +5,6 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 
 {
-    float xVelocity;
-    float yVelocity;
-
     string horizontalDirection;
     string verticalDirection;
     string x_Rotate;
@@ -17,18 +14,13 @@ public class InputController : MonoBehaviour
     public delegate void JoystickAction();
     public static event JoystickAction OnMoveLeftJoystick;
     public static event JoystickAction OnMoveRightJoystick;
-   
-    public float turnSpeed;
-    public float movementSpeed;
 
-    Rigidbody rb;
     
 
 	void Awake ()
     {
-        rb = GetComponent<Rigidbody>();
-        horizontalDirection = "Horizontal";
-        verticalDirection = "Vertical";
+        horizontalDirection = "Joystick Horizontal";
+        verticalDirection = "Joystick Vertical";
         x_Rotate = "Mouse X";
         y_Rotate = "Mouse Y";
         A_Button = "A Button";
@@ -44,7 +36,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        InputHandler();
     }
 
     void InputHandler()
@@ -68,6 +60,9 @@ public class InputController : MonoBehaviour
 
         if(Input.GetAxis(horizontalDirection) != 0 || Input.GetAxis(verticalDirection) != 0)
         {
+
+            Debug.Log("register joysticks!");
+
             do
             {
                 if(OnMoveLeftJoystick != null || OnMoveRightJoystick != null)
